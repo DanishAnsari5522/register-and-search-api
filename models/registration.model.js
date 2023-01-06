@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const registration = new mongoose.Schema({
     userid: {
-        type: Date,
-        default: Date.now
+        type: String,
+        require: true
     },
     name: {
         type: String,

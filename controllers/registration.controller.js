@@ -13,17 +13,21 @@ const doregistration = async (req, res) => {
 
         if (mobile_number.toString().length === 10) {
             const varify = await registration.findOne({ mobile_number })
+            let firstletter = name.charAt(0);
+            var currentdate = new Date();
+            const key = firstletter + currentdate;
+            console.log(key);
             // return res.json({varify});
             if (varify) {
                 if (varify.accountCreated) {
                     return res.status(401).json({ success: false, message: "User already exists" })
                 } else {
                     // update
-                    const data = await registration.findByIdAndUpdate(varify._id, { name, father_husband_name, DOB, age, gender, diseases_complaints, history_of_diseases, present_address, city, pin_code, state, country, mobile_number, email, nationality }, { new: true })
+                    const data = await registration.findByIdAndUpdate(varify._id, { userid: key, name, father_husband_name, DOB, age, gender, diseases_complaints, history_of_diseases, present_address, city, pin_code, state, country, mobile_number, email, nationality }, { new: true })
                 }
             } else {
                 // create
-                const data = await registration.create({ name, father_husband_name, DOB, age, gender, diseases_complaints, history_of_diseases, present_address, city, pin_code, state, country, mobile_number, email, nationality })
+                const data = await registration.create({ userid: key, name, father_husband_name, DOB, age, gender, diseases_complaints, history_of_diseases, present_address, city, pin_code, state, country, mobile_number, email, nationality })
             }
         } else {
             return res.status(400).json({ success: false, message: "invalid mobile number" })
