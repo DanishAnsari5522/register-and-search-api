@@ -1,7 +1,7 @@
 
 const express = require("express")
 const registration = express.Router()
-const { doregistration,liveSearch } = require("../controllers/registration.controller")
+const { doregistration,getByMobile } = require("../controllers/registration.controller")
 registration.post("/registration", doregistration)
-registration.get("/search_by_id", liveSearch)
+registration.get("/getByMobile", getByMobile)
 module.exports = registration
